@@ -15,7 +15,7 @@ Some tools that you need to install or you need to know .
 * [Git](https://git-scm.com/)
 
 ### Installations
-Installation step to use this project in your machine
+Step by step to install this project on your machine
 
 Clone this repo
 ```
