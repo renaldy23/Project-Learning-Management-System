@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;
+}
+header{
+    background-color: #eeeff3;
+    height: 100vh;
+}
+#underline{
+    height: 2px;
+    background-color: #ffb228;
+    margin-top: 7px;
+    margin-bottom: 17px;
+    opacity: 0.5;
+}
+#big-title{
+    color: #ffb228;
+}
+.navbar-nav li{
+    margin-right: 20px;
+}
+.active{
+    font-weight: bold!important;
+}
+nav .btn, .content .btn{
+    border-radius: 10px;
+    padding: 7px 22px;
+}
+nav .btn-login{
+    background-color: #0076fa;
+    color: white;
+}
+nav .btn-login:hover{
+    color: white;
+    background-color: #0059be;
+}
+.content{
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+}
+.content #sub-title{
+    font-size: 14px;
+}
+.content .title-web{
+    letter-spacing: 2px;
+}
+.content #text-welcome{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.content .btn-started{
+    background-color: #0076fa;
+    color: white;
+}
+.content .btn-started:hover{
+    background-color: #0059be;
+    color: white;
+}
+
+.feature,.qna,.reviews{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.feature .card{
+    border-radius: 20px;
+}
+
+.reviews{
+    padding: 25px 0px;
+}
+
+footer{
+    background-color: #363638;
+    padding: 20px;
+}
+#title-login{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 7rem;
+    margin-bottom: 20px;
+}
+#login-box{
+    width: 70vh;
+}
+#login-box .card .btn{
+    background-color: #0076fa;
+    color: white;
+}
+#login-box .card .btn:hover{
+    color: white;
+    background-color: #0059be;
+}
+
+.active-sidebar{
+    border-right: 6px solid #ffb228 !important;
+}
+.link-active-sidebar{
+    color: #ffb228!important;
+}
+.nav-link a:hover{
+    text-decoration: none;
+}
+.card p{
+    margin-bottom: 7px;
+}
+
+@media (max-width: 486px) {
+    #login-box{
+        width: 55vh;
+    }
+}
