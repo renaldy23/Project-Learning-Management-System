@@ -65,7 +65,7 @@
 
                                     <li class="nav-link">
                                         <a href="{{ route("profile.siswa") }}" class="text-dark">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <i class="fa fa-user mr-2" aria-hidden="true"></i>
                                             Profile
                                         </a>
                                     </li>
