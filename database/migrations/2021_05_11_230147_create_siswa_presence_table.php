@@ -19,8 +19,6 @@ class CreateSiswaPresenceTable extends Migration
             $table->foreign("siswa_id")->references("id")->on("siswa")->onDelete("cascade");
             $table->foreignId("presence_id");
             $table->foreign("presence_id")->references("id")->on("presences")->onDelete("cascade");
-            $table->foreignId("course_id");
-            $table->foreign("course_id")->references("id")->on("courses")->onDelete("cascade");
             $table->string("status")->nullable();
             $table->timestamps();
         });

@@ -155,21 +155,24 @@
                                         <div class="row mt-3">
                                             <div class="col-sm-12">
                                                 <ul class="list-group">
-                                                    @foreach ($my_course->presence_detail as $p)
+                                                    @foreach ($presence as $p)
                                                         <li class="list-group-item" style="font-weight: normal">
                                                             <div class="row align-self-center">
                                                                 <div class="col-sm-10">
-                                                                    <p class="mb-1">{{ $p->presence->title }}</p>
-                                                                    @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($p->presence->due_date)))
+                                                                    <p class="mb-1">{{ $p->title }}</p>
+                                                                    @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($p->due_date)))
                                                                         <p>Access Closed </p>
                                                                     @else
-                                                                        <p>Access opened until <strong>{{ $p->presence->due_date }}</strong></p>
+                                                                        <p>Access opened until <strong>{{ $p->due_date }}</strong></p>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-sm-2">
                                                                     <div class="d-flex justify-content-end">
-                                                                        <a href="" class="btn-sm btn btn-danger" data-toggle="modal" data-target="#deletepresence{{ $p->id }}">
+                                                                        <a href="" class="btn-sm btn btn-danger mr-1" data-toggle="modal" data-target="#deletepresence{{ $p->id }}">
                                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                        </a>
+                                                                        <a href="{{ route("presence.detail",["id" => $p->id]) }}" class="btn-sm btn btn-primary">
+                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                                                         </a>
                                                                         <div class="modal fade" id="deletepresence{{ $p->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog">

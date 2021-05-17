@@ -30,8 +30,8 @@ class Course extends Model
         return $this->hasMany(Lesson::class,"course_id","id");
     }
 
-    public function presence_detail()
+    public function presence()
     {
-        return $this->hasMany(SiswaPresence::class,"course_id","id");
+        return $this->hasMany(Presence::class,"course_id","id");
     }
 }

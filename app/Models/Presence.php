@@ -14,5 +14,10 @@ class Presence extends Model
     {
         return $this->hasMany(SiswaPresence::class,"presence_id","id");
     }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class,"course_id","id");
+    }
     
 }

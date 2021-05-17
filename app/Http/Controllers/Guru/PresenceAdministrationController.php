@@ -20,12 +20,9 @@ class PresenceAdministrationController extends Controller
         $course_id = $request->course_id;
         $due_date = $request->date." ".$request->time.":00";
         $presence = Presence::create([
+            "course_id" => $course_id,
             "title" => $request->title,
             "due_date" => $due_date
-        ]);
-        SiswaPresence::create([
-            "presence_id" => $presence->id,
-            "course_id" => $course_id
         ]);
         return redirect()->back()->with("presence_created","Berhasil membuat presensi baru!");
     }
@@ -36,5 +33,13 @@ class PresenceAdministrationController extends Controller
         $presence->delete();
 
         return redirect()->back()->with("presence_deleted","Berhasil menghapus presensi!");
+    }
+
+    public function detail($id)
+    {
+        $presence = Presence::with("siswapresence")->findOrFail($id);
+        return view("user.guru.presence.detail",[
+            "presence" => $presence
+        ]);
     }
 }

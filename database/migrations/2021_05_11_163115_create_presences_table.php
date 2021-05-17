@@ -15,6 +15,8 @@ class CreatePresencesTable extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("course_id");
+            $table->foreign("course_id")->references("id")->on("courses")->onDelete("cascade");
             $table->string("title");
             $table->dateTime("due_date");
             $table->timestamps();

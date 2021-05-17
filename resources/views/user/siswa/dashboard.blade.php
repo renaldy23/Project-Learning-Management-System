@@ -31,7 +31,7 @@
                                     <th>No</th>
                                     <th>Course</th>
                                     <th>Lesson</th>
-                                    <th>Added At</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Course</th>
+                                <th>Title</th>
                                 <th>Due Date</th>
                                 <th>Action</th>
                             </tr>
@@ -68,16 +68,16 @@
                             @foreach ($presences as $presence)
                                 <tr>
                                     <td scope="row">{{ $loop->iteration }}</td>
-                                    <td>{{ $presence->course->course_title }}</td>
-                                    <td>{{ $presence->presence->due_date }}</td>
+                                    <td>{{ $presence->title }} {{ $presence->course_title }}</td>
+                                    <td>{{ $presence->due_date }}</td>
                                     <td>
-                                        @if ($presence->status!="done")
+                                        @if ($presence->siswapresence->count()==0)
                                             <form action="{{ route("presence.attempt",["id" => $presence->id]) }}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn-sm btn btn-success">Presence</button>
                                             </form>
                                         @else
-                                            Precense Confirmed
+                                            <p>Presence Confirmed</p>
                                         @endif
                                     </td>
                                 </tr>

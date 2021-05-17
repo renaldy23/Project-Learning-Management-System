@@ -26,9 +26,10 @@ class SiswaCourseController extends Controller
     public function detail($id)
     {
         $course = Course::with("lesson.task")->findOrFail($id);
-        $presence = SiswaPresence::with("presence")
-                ->where("course_id",$course->id)
-                ->get();
+        $course_id = $course->id;
+        $presence = Presence::with(["siswapresence" => function($q) use($course_id){
+            $q->where("siswa_id",Auth::guard('student')->user()->id);
+        }])->where("course_id",$course_id)->get();
         return view("user.siswa.lesson.detail",[
             "course" => $course,
             "presence"=> $presence
@@ -57,12 +58,13 @@ class SiswaCourseController extends Controller
 
     public function presence_attempt($id)
     {
-        $presence = SiswaPresence::where("presence_id",$id)->first();
+        $presence = Presence::findOrFail($id);
         $user_id = Auth::guard('student')->user()->id;
 
-        $presence->update([
+        SiswaPresence::create([
             "siswa_id" => $user_id,
-            "status" => "done"
+            "presence_id" => $presence->id,
+            "status" => "done" 
         ]);
 
         return redirect()->back()->with('presence_attempted',"Berhasil melakukan presensi!");

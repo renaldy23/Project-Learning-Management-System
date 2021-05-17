@@ -8,16 +8,14 @@
             <div class="card">
                 <div class="card-body">
                     {!! $lesson->lesson_detail !!}
-                    @if ($lesson->bahanajar->count()!=0)
-                        Bahan Ajar :
-                        <ul>
-                            @foreach ($lesson->bahanajar as $item)
-                                <li>
-                                    <a href="{{ asset("bahanajar/".$item->content) }}">{{ $item->content }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
+                    Bahan Ajar :
+                    <ul>
+                        @foreach ($lesson->bahanajar as $item)
+                            <li>
+                                <a href="{{ asset("bahanajar/".$item->content) }}">{{ $item->content }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div class="card-footer">
                     {{ $lesson->created_at->diffForHumans() }}

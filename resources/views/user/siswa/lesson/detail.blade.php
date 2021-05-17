@@ -69,20 +69,29 @@
                                     @foreach ($presence as $p)
                                         <li class="list-group-item">
                                             <p style="font-weight: normal" class="mb-1">
-                                                {{ $p->presence->title }}
+                                                {{ $p->title }}
                                             </p>
-                                            @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($p->presence->due_date)))
+                                            @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($p->due_date)))
                                                 <p>Access Closed </p>
                                             @else
-                                                <p style="font-weight: normal">Access opened until <strong>{{ $p->presence->due_date }}</strong></p>
-                                                @if ($p->status=="done" && $p->siswa_id == Auth::guard("student")->user()->id)
-                                                    <p class="text-muted" style="font-weight: normal; font-size: 15px">Presence Confirmed</p>
-                                                @else
-                                                    <form action="{{ route("presence.attempt",["id" => $p->presence->id]) }}" method="post">
+                                                <p style="font-weight: normal">Access opened until <strong>{{ $p->due_date }}</strong></p>
+                                                @if ($p->siswapresence->count()==0)
+                                                    <form action="{{ route("presence.attempt",["id" => $p->id]) }}" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn-sm btn btn-success">Precense</button>
                                                     </form>
+                                                @else
+                                                    @foreach ($p->siswapresence as $item)
+                                                        @if ($item->status=="done")
+                                                            <p class="text-muted mb-1">Presence Confirmed</p>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
+                                                {{-- @if ($p->status=="done" && $p->siswa_id == Auth::guard("student")->user()->id)
+                                                    <p class="text-muted" style="font-weight: normal; font-size: 15px">Presence Confirmed</p>
+                                                @else
+                                                    
+                                                @endif --}}
                                             @endif
                                         </li>
                                     @endforeach

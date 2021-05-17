@@ -70,7 +70,9 @@ Route::group(["prefix" => "guru" , "middleware" => ["auth:teacher"]],function(){
     
     Route::post("presence/store",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"store"])->name("presence.create");
     Route::delete("presence/delete/{id}",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"destroy"])->name("presence.delete");
+    Route::get("presence/detail/{id}",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"detail"])->name("presence.detail");
     
+
     Route::put("grade/create/{id}",[App\Http\Controllers\Guru\GradeController::class,"update"])->name("grade.create");
 
     Route::get("/my-class/task-detail/{id}",[App\Http\Controllers\Guru\MyClassController::class,"task_detail"])->name("class.task.detail");
