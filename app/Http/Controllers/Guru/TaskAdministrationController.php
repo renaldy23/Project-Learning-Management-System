@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\Submission;
 use App\Models\Task;
+use App\Models\TaskDetail;
 use Illuminate\Http\Request;
 
 class TaskAdministrationController extends Controller
@@ -25,9 +26,10 @@ class TaskAdministrationController extends Controller
             "lesson" => "required",
             "desc" => "required",
             "date" => "required",
-            "time" => "required"
+            "time" => "required",
+            "file" => "max:7000"
         ]);
-
+        
         $date_time = $request->date." ".$request->time.":00";
         $task = Task::create([
             "lesson_id" => $request->lesson,
@@ -36,6 +38,19 @@ class TaskAdministrationController extends Controller
             "desc" => $request->desc,
             "due_date" => $date_time
         ]);
+
+        if ($request->hasFile("file")) {
+            $task_id = $task->id;
+            foreach ($request->file("file") as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path().'/task_files',$name);
+                TaskDetail::create([
+                    "task_id" => $task_id,
+                    "attach_files" => $name
+                ]);
+            }
+        }
+        
 
         return redirect()->route("my.course")->with("created_task","Berhasil membuat task baru!");
     }
@@ -83,6 +98,12 @@ class TaskAdministrationController extends Controller
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
+        if ($task->detail->count()!=0) {
+            foreach ($task->detail as $attach) {
+                $path = public_path()."/task_files/".$attach->attach_files;
+                unlink($path);
+            }
+        }
         $task->delete();
 
         return redirect()->route("my.course")->with("deleted_task","Berhasil menghapus task!");

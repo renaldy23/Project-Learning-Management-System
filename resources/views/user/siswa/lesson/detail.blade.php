@@ -84,14 +84,11 @@
                                                     @foreach ($p->siswapresence as $item)
                                                         @if ($item->status=="done")
                                                             <p class="text-muted mb-1">Presence Confirmed</p>
+                                                        @elseif($item->status=="late")
+                                                            <p class="text-muted mb-1">Late {{ $item->created_at - $p->due_date }}</p>
                                                         @endif
                                                     @endforeach
                                                 @endif
-                                                {{-- @if ($p->status=="done" && $p->siswa_id == Auth::guard("student")->user()->id)
-                                                    <p class="text-muted" style="font-weight: normal; font-size: 15px">Presence Confirmed</p>
-                                                @else
-                                                    
-                                                @endif --}}
                                             @endif
                                         </li>
                                     @endforeach

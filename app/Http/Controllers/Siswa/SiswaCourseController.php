@@ -32,7 +32,7 @@ class SiswaCourseController extends Controller
         }])->where("course_id",$course_id)->get();
         return view("user.siswa.lesson.detail",[
             "course" => $course,
-            "presence"=> $presence
+            "presence"=> $presence,
         ]);
     }
 
@@ -59,12 +59,18 @@ class SiswaCourseController extends Controller
     public function presence_attempt($id)
     {
         $presence = Presence::findOrFail($id);
+        if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($presence->due_date))) {
+            $status = "late";
+        }
+        else{
+            $status = "done";
+        }
         $user_id = Auth::guard('student')->user()->id;
 
         SiswaPresence::create([
             "siswa_id" => $user_id,
             "presence_id" => $presence->id,
-            "status" => "done" 
+            "status" => $status 
         ]);
 
         return redirect()->back()->with('presence_attempted',"Berhasil melakukan presensi!");

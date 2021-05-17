@@ -12,8 +12,8 @@ class SiswaAssignmentController extends Controller
 {
     public function index()
     {
-        $submission = Submission::with("task")->orderBy("submitted_at","DESC")
-                    ->where("siswa_id",Auth::guard('student')->user()->id)->get();
+        $submission = Submission::with("task.lesson.course")->orderBy("submitted_at","DESC")
+                    ->where("siswa_id",Auth::guard('student')->user()->id)->simplePaginate(5);
         return view("user.siswa.my_assignment",[
             "submission" => $submission
         ]);

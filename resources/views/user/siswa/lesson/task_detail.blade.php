@@ -15,6 +15,14 @@
                     <div class="card">
                         <div class="card-body">
                             {!! $task->desc !!}
+                            @if ($task->detail->count()!=0)
+                                Files : 
+                                <ul>
+                                    @foreach ($task->detail as $item)
+                                        <li><a href="{{ asset("task_files/".$item->attach_files) }}">{{ $item->attach_files }}</a></li>
+                                    @endforeach
+                                </ul>
+                            @endif
                             @if (date("Y-m-d H:i")==date("Y-m-d H:i" , strtotime($task->due_date)))
                                 
                             @else

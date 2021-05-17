@@ -19,4 +19,9 @@ class Task extends Model
     {
         return $this->hasMany(Submission::class,"task_id","id");
     }
+
+    public function detail()
+    {
+        return $this->hasMany(TaskDetail::class,"task_id","id");
+    }
 }
