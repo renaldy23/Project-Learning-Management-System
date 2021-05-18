@@ -82,9 +82,14 @@
             @endif
             <div class="card">
                 <div class="card-header w-100">
-                  <h3 class="card-title">
-                    
-                  </h3>
+                    <a href="{{ route("guru.eksport") }}?type=excel" class="btn-sm btn btn-success">
+                        <i class="fas fa-file-excel"></i>
+                            Excel
+                    </a>
+                    <a href="{{ route("guru.eksport") }}?type=pdf" class="btn-sm btn btn-danger">
+                        <i class="fas fa-file-pdf"></i>
+                            PDF
+                    </a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -164,7 +169,6 @@
     $(function () {
       $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["csv", "excel", "pdf"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
         "paging": true,

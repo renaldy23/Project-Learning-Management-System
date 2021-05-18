@@ -117,3 +117,8 @@ Route::group(["prefix" => "delete"],function(){
     Route::delete("course/{id}",[App\Http\Controllers\Admin\AdministrationCourseController::class,'destroy'])->name("delete.course");
     Route::get("course/class/{id}/{course_id}" , [App\Http\Controllers\Admin\AdministrationCourseController::class,'delete_class'])->name("delete.course.class");
 });
+
+Route::prefix('eksport')->group(function () {
+    Route::get("/user/siswa",[App\Http\Controllers\Guru\EksportController::class,"siswa_eksport"])->name("siswa.eksport");
+    Route::get("/user/guru",[App\Http\Controllers\Guru\EksportController::class,"guru_eksport"])->name("guru.eksport");
+});

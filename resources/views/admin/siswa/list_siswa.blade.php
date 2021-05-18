@@ -109,6 +109,30 @@
             @endif
 
             <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <select name="kelas_id" id="kelas_id" class="form-control">
+                                    <option disabled selected>-- Pilih Kelas --</option>
+                                    @foreach ($kelas as $k)
+                                        <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 btn-eksport" style="display: none">
+                            <a href="" class="btn-sm btn btn-success" id="btn-excel" target="_blank">
+                                <i class="fas fa-file-excel"></i>
+                                 Excel
+                            </a>
+                            <a href="" class="btn-sm btn btn-danger" id="btn-pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                 PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-hover">
                         <thead>
@@ -206,7 +230,6 @@
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["csv", "excel", "pdf"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -217,5 +240,16 @@
                 "autoWidth": false,
             });
         });
+    </script>
+@endpush
+
+@push('script')
+    <script>
+        $("#kelas_id").on("change",function(){
+            $(".btn-eksport").css("display","inline-block")
+            var kelas_id = $(this).val();
+            $("#btn-excel").attr("href","/eksport/user/siswa?type=excel&kelas_id="+kelas_id);
+            $("#btn-pdf").attr("href","/eksport/user/siswa?type=pdf&kelas_id="+kelas_id);
+        })
     </script>
 @endpush
