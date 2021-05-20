@@ -42,6 +42,10 @@ Route::group(["prefix" => "siswa" , "middleware" => ["auth:student"]],function()
     Route::get('/profile-siswa',[App\Http\Controllers\ProfileController::class,'profile'] )->name("profile.siswa");
 
     Route::put('/edit-siswa/{id}',[App\Http\Controllers\ProfileController::class,'edit_siswa'] )->name("edit.siswa");
+
+    Route::get('/assigned-quiz/{id}',[App\Http\Controllers\Siswa\AttemptQuizController::class,'index'] )->name("lesson.quiz.detail");
+    Route::post('/quiz/attempt-now/{id}',[App\Http\Controllers\Siswa\AttemptQuizController::class,'attempt'] )->name("attempt.quiz");
+    Route::post('/quiz/result/{id}',[App\Http\Controllers\Siswa\AttemptQuizController::class,'result'] )->name("result.quiz");
 });
 
 Route::group(["prefix" => "guru" , "middleware" => ["auth:teacher"]],function(){
@@ -65,13 +69,27 @@ Route::group(["prefix" => "guru" , "middleware" => ["auth:teacher"]],function(){
     Route::post("store/task",[App\Http\Controllers\Guru\TaskAdministrationController::class,"store"])->name("task.store");
     Route::get("detail/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"detail"])->name("task.detail");
     Route::get("edit/task{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"edit"])->name("task.edit");
-    Route::put("update/task{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"update"])->name("task.update");
-    Route::delete("delete/task{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"destroy"])->name("task.delete");
+    Route::put("update/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"update"])->name("task.update");
+    Route::delete("delete/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"destroy"])->name("task.delete");
     
     Route::post("presence/store",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"store"])->name("presence.create");
     Route::delete("presence/delete/{id}",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"destroy"])->name("presence.delete");
     Route::get("presence/detail/{id}",[App\Http\Controllers\Guru\PresenceAdministrationController::class,"detail"])->name("presence.detail");
     
+    Route::get("quiz/create",[App\Http\Controllers\Guru\QuizController::class,"create"])->name("create.quiz");
+    Route::post("quiz/store",[App\Http\Controllers\Guru\QuizController::class,"store"])->name("store.quiz");
+    Route::get("quiz/detail/{id}",[App\Http\Controllers\Guru\QuizController::class,"detail"])->name("detail.quiz");
+    Route::get("quiz/edit/{id}",[App\Http\Controllers\Guru\QuizController::class,"edit"])->name("edit.quiz");
+    Route::put("quiz/update/{id}",[App\Http\Controllers\Guru\QuizController::class,"update"])->name("update.quiz");
+    Route::delete("quiz/delete/{id}",[App\Http\Controllers\Guru\QuizController::class,"destroy"])->name("delete.quiz");
+    Route::put("quiz/open-access/{id}",[App\Http\Controllers\Guru\QuizController::class,"access_open"])->name("open.access");
+    Route::get("quiz/submitted/{id}",[App\Http\Controllers\Guru\QuizController::class,"submitted"])->name("submitted.quiz");
+    
+    Route::get("question/create",[App\Http\Controllers\Guru\QuestionController::class,"create"])->name("create.question");
+    Route::post("question/store",[App\Http\Controllers\Guru\QuestionController::class,"store"])->name("store.question");
+    Route::get("question/edit/{id}",[App\Http\Controllers\Guru\QuestionController::class,"edit"])->name("edit.question");
+    Route::put("question/update/{id}",[App\Http\Controllers\Guru\QuestionController::class,"update"])->name("update.question");
+    Route::delete("question/delete/{id}",[App\Http\Controllers\Guru\QuestionController::class,"destroy"])->name("delete.question");
 
     Route::put("grade/create/{id}",[App\Http\Controllers\Guru\GradeController::class,"update"])->name("grade.create");
 
@@ -96,7 +114,7 @@ Route::group(["prefix" => "create"],function(){
     Route::post('/walikelas', [App\Http\Controllers\Admin\JurusanController::class,'walikelas'])->name("create.walikelas");
     Route::post('/course', [App\Http\Controllers\Admin\AdministrationCourseController::class,'store'])->name("create.course");
     Route::post('/admin', [App\Http\Controllers\Admin\UserAdminController::class,'store'])->name("create.admin");
-
+    
 });
 
 Route::group(["prefix" => "edit"],function(){
@@ -121,4 +139,6 @@ Route::group(["prefix" => "delete"],function(){
 Route::prefix('eksport')->group(function () {
     Route::get("/user/siswa",[App\Http\Controllers\Guru\EksportController::class,"siswa_eksport"])->name("siswa.eksport");
     Route::get("/user/guru",[App\Http\Controllers\Guru\EksportController::class,"guru_eksport"])->name("guru.eksport");
+
+    Route::get("/submitted/quiz/{id}",[App\Http\Controllers\Guru\EksportController::class,"quiz_submitted"])->name("eksport.submitted_quiz");
 });

@@ -32,4 +32,19 @@ class Siswa extends Authenticatable
     {
         return $this->hasMany(Submission::class,"siswa_id","id");
     }
+
+    public function quiz()
+    {
+        return $this->belongsToMany(Quiz::class,"quiz_attempt")->withPivot("attempt_at");
+    }
+
+    public function answer()
+    {
+        return $this->hasMany(Answer::class,"siswa_id","id");
+    }
+
+    public function result()
+    {
+        return $this->hasMany(QuizResult::class,"siswa_id","id");
+    }
 }

@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 mt-2">
+        <div class="col-lg-6 col-md-12 mt-2">
             <div class="card">
                 <div class="card-header">New Lesson</div>
                 <div class="card-body">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mt-2">
+        <div class="col-lg-6 col-md-12 mt-2">
             <div class="card">
                 <div class="card-header">Presensi Terkini</div>
                 <div class="card-body">

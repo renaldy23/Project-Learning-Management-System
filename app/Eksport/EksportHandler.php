@@ -3,6 +3,7 @@
 namespace App\Eksport;
 
 use App\Models\Guru;
+use App\Models\Quiz;
 use App\Models\Siswa;
 use App\Models\Submission;
 use App\Models\Task;
@@ -100,6 +101,46 @@ class EksportHandler
         header("Content-Disposition: attachment; filename=Data Akun LMS(GURU) - ".date("Y-m-d").".xlsx");
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
+    }
+
+    public static function quiz_submitted($id)
+    {
+        $quiz = Quiz::with("siswa","result")->findOrFail($id);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue("A1", "No");
+        $sheet->setCellValue("B1", "Nama Siswa");
+        $sheet->setCellValue("C1", "Kelas");
+        $sheet->setCellValue("D1", "Point");
+        $sheet->setCellValue("E1", "Attempt At");
+        $sheet->setCellValue("F1", "Submitted At");
+        $sheet->setCellValue("G1", "Duration");
+
+        $i = 2;
+        $no = 1;
+        foreach ($quiz->result as $val) {
+            foreach ($quiz->siswa as $s) {
+                if ($s->pivot->siswa_id==$val->siswa_id) {
+                    $sheet->setCellValue("A" . $i, $no++);
+                    $sheet->setCellValue("B" . $i, $s->name);
+                    $sheet->setCellValue("C" . $i, $s->kelas->nama_kelas);
+                    $sheet->setCellValue("D" . $i, $val->point."/".$val->max_points);
+                    $sheet->setCellValue("E" . $i, $s->pivot->attempt_at);
+                    $sheet->setCellValue("F" . $i, $val->created_at);
+                    $startTime  = \Carbon\Carbon::parse($s->pivot->attempt_at);
+                    $endTime  = \Carbon\Carbon::parse($val->created_at);
+                    $diff_in_days = $startTime->diff($endTime)->format('%H Hours %I Minutes %S Seconds');
+                    $sheet->setCellValue("G" . $i, $diff_in_days);
+                    $i++;
+                }
+            }
+        }
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=Laporan Hasil $quiz->title - ".date("Y-m-d").".xlsx");
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+
     }
 }
 

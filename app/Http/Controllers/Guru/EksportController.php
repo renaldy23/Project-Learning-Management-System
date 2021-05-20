@@ -46,4 +46,9 @@ class EksportController extends Controller
         
     }
 
+    public function quiz_submitted($id)
+    {
+        EksportHandler::quiz_submitted($id);
+    }
+
 }

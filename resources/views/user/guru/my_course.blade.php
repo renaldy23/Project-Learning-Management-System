@@ -31,6 +31,18 @@
         <div class="alert alert-warning" role="alert">
             <strong>{{ Session::get('presence_deleted') }}</strong>
         </div>
+    @elseif(Session::has("quiz.create"))
+        <div class="alert alert-success" role="alert">
+            <strong>{{ Session::get('quiz.create') }}</strong>
+        </div>
+    @elseif(Session::has("quiz_update"))
+        <div class="alert alert-success" role="alert">
+            <strong>{{ Session::get('quiz_update') }}</strong>
+        </div>
+    @elseif(Session::has("quiz_deleted"))
+        <div class="alert alert-warning" role="alert">
+            <strong>{{ Session::get('quiz_deleted') }}</strong>
+        </div>
     @elseif($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -80,7 +92,9 @@
                         <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link 
-                                @if(Session::has("updated_task") || Session::has("created_task") || Session::has("deleted_task") || Session::has("presence_deleted") || Session::has("presence_created")) @else active @endif" 
+                                @if(Session::has("updated_task") 
+                                || Session::has("created_task") || Session::has("deleted_task") || Session::has("presence_deleted") || Session::has("quiz.create")
+                                || Session::has("presence_created") || Session::has("quiz_create") || Session::has("quiz_update")) @else active @endif" 
                                 id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" 
                                 aria-selected="true">Lesson</a>
                             </li>
@@ -91,13 +105,21 @@
                                 aria-selected="false">Task</a>
                             </li>
                             <li class="nav-item" role="presentation">
+                                <a class="nav-link 
+                                @if(Session::has('quiz_create') || Session::has('quiz_update')) active @endif" 
+                                id="pills-quiz-tab" data-toggle="pill" href="#pills-quiz" role="tab" aria-controls="pills-quiz" 
+                                aria-selected="false">Quiz</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
                                 <a class="nav-link @if(Session::has('presence_created') || Session::has("presence_deleted")) active @endif" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Presence</a>
                             </li>
                         </ul>
                         <div id="underline"></div>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade 
-                                @if(Session::has("updated_task") || Session::has("created_task") || Session::has("deleted_task") || Session::has('presence_deleted') || Session::has("presence_created")) @else show active @endif" 
+                                @if(Session::has("updated_task") || Session::has("created_task") 
+                                || Session::has("deleted_task") || Session::has('presence_deleted') 
+                                || Session::has("presence_created") || Session::has("quiz_create") || Session::has("quiz_update")) @else show active @endif" 
                                 id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -134,7 +156,34 @@
                                                         <ul class="list-group mb-4">
                                                             @foreach ($item->task as $data)
                                                                 <li class="list-group-item" style="font-weight: normal">
-                                                                    <a href="{{ route("task.detail",["id" => $data->id]) }}">{{ $data->title }}</a>
+                                                                    <a href="{{ route("task.detail",["id" => $data->id]) }}?course_id={{ $my_course->id }}">{{ $data->title }}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade
+                            @if(Session::has("quiz_create") || Session::has("quiz_update")) show active @endif" id="pills-quiz" role="tabpanel" aria-labelledby="pills-quiz-tab">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="{{ route('create.quiz') }}?course_id={{ $my_course->id }}" class="btn-sm btn btn-success">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            New Quiz
+                                        </a>
+                                        <div class="row mt-3">
+                                            <div class="col-sm-12">
+                                                @foreach ($my_course->lesson as $item)
+                                                    @if ($item->quiz->count()!=0)
+                                                    <p style="font-weight: normal" class="mb-1">{{ $item->title }}</p>
+                                                        <ul class="list-group mb-4">
+                                                            @foreach ($item->quiz as $data)
+                                                                <li class="list-group-item" style="font-weight: normal">
+                                                                    <a href="{{ route("detail.quiz",["id" => $data->id]) }}?course_id={{ $my_course->id }}">{{ $data->title }}</a>
                                                                 </li>
                                                             @endforeach
                                                         </ul>

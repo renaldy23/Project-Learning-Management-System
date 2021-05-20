@@ -14,7 +14,7 @@ class GuruCourseController extends Controller
 {
     public function index()
     {
-        $my_course = Course::with("kelas","lesson.task","presence")->where("guru_id",Auth::guard('teacher')->user()->id)->first();
+        $my_course = Course::with("kelas","lesson.task","presence","quiz")->where("guru_id",Auth::guard('teacher')->user()->id)->first();
         if ($my_course==null) {
             return redirect()->route("dashboard.guru");
         }

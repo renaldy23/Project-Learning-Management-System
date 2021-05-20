@@ -6,6 +6,9 @@ header{
     background-color: #eeeff3;
     height: 100vh;
 }
+.mini-title{
+    font-size: 14px;
+}
 #underline{
     height: 2px;
     background-color: #ffb228;
@@ -59,8 +62,8 @@ nav .btn-login:hover{
 }
 
 .feature,.qna,.reviews{
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 200px;
+    margin-bottom: 200px;
 }
 
 .feature .card{
@@ -76,14 +79,13 @@ footer{
     padding: 20px;
 }
 #title-login{
-    height: 20vh;
     display: flex;
     justify-content: center;
     padding-top: 7rem;
     margin-bottom: 20px;
 }
 #login-box{
-    width: 70vh;
+    width: 65%;
 }
 #login-box .card .btn{
     background-color: #0076fa;
@@ -106,9 +108,20 @@ footer{
 .card p{
     margin-bottom: 7px;
 }
-
-@media (max-width: 486px) {
+@media screen and ( max-width:916px ) {
     #login-box{
-        width: 55vh;
+        width: 80%;
+    }
+}
+
+@media screen and ( max-width:980px ) {
+    .mini-title{
+        font-size: 13px;
+    }
+    .responsive{
+        background-color: #fff;
+    }
+    #login-box{
+        width: 100%;
     }
 }

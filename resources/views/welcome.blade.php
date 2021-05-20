@@ -19,7 +19,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light" data-aos="fade-down">
+        <nav class="navbar navbar-expand-lg navbar-light responsive" data-aos="fade-down">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <div class="row">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-3 ml-1" id="title">
                             <p class="mb-0 title-web"><span id="title-name" class="font-weight-bold">B</span>e<span id="title-name" class="font-weight-bold">S</span>mart</p>
-                            <p style="font-size: 14px;" class="text-muted">Learning Management System</p>
+                            <p class="text-muted mini-title">Learning Management System</p>
                         </div>
                     </div>
                 </a>

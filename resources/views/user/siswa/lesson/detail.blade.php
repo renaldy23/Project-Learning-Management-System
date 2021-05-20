@@ -8,8 +8,8 @@
     @endif
     <h4>{{ $course->course_title }}</h4>
     <div id="underline"></div>
-    <div class="row mt-2">
-        <div class="col-sm-8 mt-3 mw-100">
+    <div class="row mt-2 flex-column-reverse flex-md">
+        <div class="col-lg-8 col-md-12 mt-3 mw-100">
             <div class="container mw-100 bg-white p-3 shadow rounded-lg">
                 <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -20,6 +20,11 @@
                         <a class="nav-link" 
                         id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" 
                         aria-selected="false">Task</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" 
+                        id="pills-quiz-tab" data-toggle="pill" href="#pills-quiz" role="tab" aria-controls="pills-quiz" 
+                        aria-selected="false">Quiz</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Presence</a>
@@ -62,6 +67,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="pills-quiz" role="tabpanel" aria-labelledby="pills-quiz-tab">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @foreach ($course->lesson as $item)
+                                    @if ($item->quiz->count()!=0)
+                                    <p style="font-weight: normal" class="mb-1">{{ $item->title }}</p>
+                                        <ul class="list-group mb-4">
+                                            @foreach ($item->quiz as $data)
+                                                <li class="list-group-item" style="font-weight: normal">
+                                                    <a href="{{ route("lesson.quiz.detail",["id" => $data->id]) }}?course_id={{ $course->id }}">{{ $data->title }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                         <div class="row">
                             <div class="col-sm-12">
@@ -71,24 +94,24 @@
                                             <p style="font-weight: normal" class="mb-1">
                                                 {{ $p->title }}
                                             </p>
-                                            @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($p->due_date)))
-                                                <p>Access Closed </p>
+                                            @if ($p->siswapresence->count()==0)
+                                                <form action="{{ route("presence.attempt",["id" => $p->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn-sm btn btn-success">Precense</button>
+                                                </form>
                                             @else
-                                                <p style="font-weight: normal">Access opened until <strong>{{ $p->due_date }}</strong></p>
-                                                @if ($p->siswapresence->count()==0)
-                                                    <form action="{{ route("presence.attempt",["id" => $p->id]) }}" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn-sm btn btn-success">Precense</button>
-                                                    </form>
-                                                @else
-                                                    @foreach ($p->siswapresence as $item)
-                                                        @if ($item->status=="done")
-                                                            <p class="text-muted mb-1">Presence Confirmed</p>
-                                                        @elseif($item->status=="late")
-                                                            <p class="text-muted mb-1">Late {{ $item->created_at - $p->due_date }}</p>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
+                                                @foreach ($p->siswapresence as $item)
+                                                    @if ($item->status=="done")
+                                                        <p class="text-muted mb-1">Presence Confirmed</p>
+                                                    @elseif($item->status=="late")
+                                                        @php
+                                                            $startTime  = \Carbon\Carbon::parse($item->created_at);
+                                                            $endTime  = \Carbon\Carbon::parse($p->due_date);
+                                                            $diff_in_days = $startTime->diff($endTime)->format('%D Days %H Hours %I Minutes %S Seconds');
+                                                        @endphp
+                                                        <p class="text-danger mb-1">Overdue By <br> {{ $diff_in_days }}</p>
+                                                    @endif
+                                                @endforeach
                                             @endif
                                         </li>
                                     @endforeach
@@ -99,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 mt-3">
+        <div class="col-lg-4 col-md-12 mt-3">
             <div class="accordion" id="accordionExample">
                 <div class="card " style="border-top: 2px solid #0076fa">
                     <div class="card-header" id="headingOne">

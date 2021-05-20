@@ -7,12 +7,12 @@
 <li class="nav-link 
     {{ request()->is("guru/my-course") || 
     request()->is("guru/create/lesson") || 
-    request()->is("guru/create/task") ? "active-sidebar" : "" }}">
+    request()->is("guru/create/task") || request()->is('guru/quiz/create') ? "active-sidebar" : "" }}">
     
     <a href="{{ route("my.course") }}" class="
         {{ request()->is("guru/my-course") || 
         request()->is("guru/create/lesson") || 
-        request()->is("guru/create/task") ? "link-active-sidebar" : "text-dark " }}">
+        request()->is("guru/create/task") || request()->is("guru/quiz/create") ? "link-active-sidebar" : "text-dark " }}">
         <i class="fa fa-book mr-2" aria-hidden="true"></i>
         My Course
     </a>

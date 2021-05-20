@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    @stack('css-inline')
     <!-- Material Design Bootstrap -->
 </head>
 <body>
@@ -54,48 +55,52 @@
     <div class="wrapped mt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 mb-5">
+                <div class="col-lg-3 col-md-12 mb-5">
                     <div class="card">
                         <div class="card-header">Main Navigation</div>
                         <div class="card-body">
-                            <nav class="nav flex-column">
+                            @isset($attempt)
                                 @if (Auth::guard("student")->check())
-                                    @include('user.siswa.partials.auth.menu')
-                                    <div id="underline"></div>
-
-                                    <li class="nav-link">
-                                        <a href="{{ route("profile.siswa") }}" class="text-dark">
-                                            <i class="fa fa-user mr-2" aria-hidden="true"></i>
-                                            Profile
-                                        </a>
-                                    </li>
-                                @else
-                                    @include('user.guru.partials.auth.menu')
-                                    <div id="underline"></div>
-
-                                    <li class="nav-link {{ request()->is("guru/profile-guru") ? "active-sidebar" : "" }}">
-                                        <a href="{{ route("profile.guru") }}" class="{{ request()->is("guru/profile-guru") ? "link-active-sidebar" : "text-dark " }}">
-                                            <i class="fa fa-user mr-2" aria-hidden="true"></i>
-                                            Profile
-                                        </a>
-                                    </li>
+                                    @include('user.siswa.quizzes.menu')
                                 @endif
+                            @else
+                                <nav class="nav flex-column">
+                                    @if (Auth::guard("student")->check())
+                                        @include('user.siswa.partials.auth.menu')
+                                        <div id="underline"></div>
 
-                                
-                                <li class="nav-link">
-                                    <form action="{{ route("logout") }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="text-dark" style="border: none; outline: none; background: none; padding: 0">
-                                            <i class="fa fa-sign-out-alt mr-2" aria-hidden="true"></i>
-                                            Sign Out
-                                        </button>
-                                    </form>
-                                </li>
-                            </nav>
+                                        <li class="nav-link">
+                                            <a href="{{ route("profile.siswa") }}" class="text-dark">
+                                                <i class="fa fa-user mr-2" aria-hidden="true"></i>
+                                                Profile
+                                            </a>
+                                        </li>
+                                    @else
+                                        @include('user.guru.partials.auth.menu')
+                                        <div id="underline"></div>
+
+                                        <li class="nav-link {{ request()->is("guru/profile-guru") ? "active-sidebar" : "" }}">
+                                            <a href="{{ route("profile.guru") }}" class="{{ request()->is("guru/profile-guru") ? "link-active-sidebar" : "text-dark " }}">
+                                                <i class="fa fa-user mr-2" aria-hidden="true"></i>
+                                                Profile
+                                            </a>
+                                        </li>
+                                    @endif
+                                    <li class="nav-link">
+                                        <form action="{{ route("logout") }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="text-dark" style="border: none; outline: none; background: none; padding: 0">
+                                                <i class="fa fa-sign-out-alt mr-2" aria-hidden="true"></i>
+                                                Sign Out
+                                            </button>
+                                        </form>
+                                    </li>
+                                </nav>
+                            @endisset
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-md-12 col-lg-9">
                     @yield('content')
                 </div>
             </div>
