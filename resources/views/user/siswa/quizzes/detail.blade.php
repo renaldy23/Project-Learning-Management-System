@@ -98,7 +98,7 @@
                                                     <div class="alert alert-success mt-2">
                                                         <div class="d-flex justify-content-between">
                                                             <p class="mb-0">Your Answer : {{ $a->option }} <i style="font-size: 14px">(Correct)</i></p>
-                                                            <p class="mb-0">25/{{ $q->nilai }}</p>
+                                                            <p class="mb-0">{{ $q->nilai }} Points</p>
                                                         </div>
                                                     </div>
                                                 @else

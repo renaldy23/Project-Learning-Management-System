@@ -102,7 +102,8 @@
                                             @else
                                                 @foreach ($p->siswapresence as $item)
                                                     @if ($item->status=="done")
-                                                        <p class="text-muted mb-1">Presence Confirmed</p>
+                                                        <p class="text-muted mb-1" style="font-size: 15px;">Presence Confirmed</p>
+                                                        <p class="mb-1 text-muted" style="font-size: 14px">Presence at {{ $item->created_at }}</p>
                                                     @elseif($item->status=="late")
                                                         @php
                                                             $startTime  = \Carbon\Carbon::parse($item->created_at);

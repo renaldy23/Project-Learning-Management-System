@@ -68,7 +68,7 @@ Route::group(["prefix" => "guru" , "middleware" => ["auth:teacher"]],function(){
     Route::get("create/task",[App\Http\Controllers\Guru\TaskAdministrationController::class,"create"])->name("task.create");
     Route::post("store/task",[App\Http\Controllers\Guru\TaskAdministrationController::class,"store"])->name("task.store");
     Route::get("detail/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"detail"])->name("task.detail");
-    Route::get("edit/task{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"edit"])->name("task.edit");
+    Route::get("edit/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"edit"])->name("task.edit");
     Route::put("update/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"update"])->name("task.update");
     Route::delete("delete/task/{id}",[App\Http\Controllers\Guru\TaskAdministrationController::class,"destroy"])->name("task.delete");
     
