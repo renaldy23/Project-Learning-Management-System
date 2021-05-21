@@ -404,7 +404,7 @@
                 <div class="col-sm-4 mt-3">
                     <h5 class="text-muted">Provided By</h5>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <img src="{{ asset("img/smk.png") }}" alt="" class="img-fluid">
                         </div>
                         <div class="col-sm-8">
@@ -413,7 +413,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <img src="{{ asset("img/RPL.png") }}" class="img-fluid">
                         </div>
                         <div class="col-sm-8">

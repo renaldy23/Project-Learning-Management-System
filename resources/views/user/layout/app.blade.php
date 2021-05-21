@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-3 ml-1">
                         <p class="mb-0 text-white"><span id="title-name" class="font-weight-bold">B</span>e<span id="title-name" class="font-weight-bold">S</span>mart</p>
-                        <p style="font-size: 14px;" class="text-white">Learning Management System</p>
+                        <p class="text-white mini-title">Learning Management System</p>
                     </div>
                 </div>
             </a>
@@ -153,7 +153,7 @@
                 <div class="col-sm-4 mt-3">
                     <h5 class="text-muted">Provided By</h5>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <img src="{{ asset("img/smk.png") }}" alt="" class="img-fluid">
                         </div>
                         <div class="col-sm-8">
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <img src="{{ asset("img/RPL.png") }}" class="img-fluid">
                         </div>
                         <div class="col-sm-8">

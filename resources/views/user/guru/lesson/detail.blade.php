@@ -50,3 +50,36 @@
         </div>
     </div>
 @endsection
+@push('css-inline')
+    <style>
+        iframe{
+            width: 500px;
+            height: 300px;
+        }
+        @media screen and ( max-width: 600px){
+            iframe{
+                width: 500px;
+            }
+        }
+        @media screen and ( max-width: 550px){
+            iframe{
+                width: 400px;
+            }
+        }
+        @media screen and ( max-width: 435px){
+            iframe{
+                width: 350px;
+            }
+        }
+        @media screen and ( max-width: 390px){
+            iframe{
+                width: 300px;
+            }
+        }
+        @media screen and ( max-width: 310px){
+            iframe{
+                width: 230px;
+            }
+        }
+    </style>
+@endpush

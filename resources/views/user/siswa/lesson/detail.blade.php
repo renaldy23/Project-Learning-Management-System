@@ -8,8 +8,8 @@
     @endif
     <h4>{{ $course->course_title }}</h4>
     <div id="underline"></div>
-    <div class="row mt-2 flex-column-reverse flex-md">
-        <div class="col-lg-8 col-md-12 mt-3 mw-100">
+    <div class="row mt-2 flex-column-reverse flex-md-row">
+        <div class="col-lg-8 mt-3 mw-100">
             <div class="container mw-100 bg-white p-3 shadow rounded-lg">
                 <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 mt-3">
+        <div class="col-lg-4 mt-3">
             <div class="accordion" id="accordionExample">
                 <div class="card " style="border-top: 2px solid #0076fa">
                     <div class="card-header" id="headingOne">

@@ -74,35 +74,7 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="attempt">Attempt Allowed <span class="text-danger">*</span></label><br>
-                            <input type="radio" name="attempt" id="attempt" value="1"> Only 1 Times<br>
-                            <input type="radio" name="attempt" id="attempt2" value="custom" @error('multi_attempt')
-                                checked
-                            @enderror @if(Session::has("not_greather_than_2")) checked @endif> Customize<br>
-                            @error('attempt')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="row attempt-times" @if($errors->any() || Session::has("not_greather_than_2")) style="display: flex @else style="display: none @enderror"> 
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="multi_attempt">Number of Attempt</label>
-                            <input type="number" name="multi_attempt" id="multi_attempt" class="form-control">
-                            @error('multi_attempt')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                            @if (Session::has("not_greather_than_2"))
-                                <span class="text-danger">{{ Session::get("not_greather_than_2") }}</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                </div>>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>

@@ -80,34 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="attempt">Attempt Allowed <span class="text-danger">*</span></label><br>
-                            <input type="radio" name="attempt" id="attempt" value="1" @if($quiz->allowed_attempt=="1") checked @endif> Only 1 Times<br>
-                            <input type="radio" name="attempt" id="attempt2" value="custom" @error('multi_attempt')
-                                checked
-                            @enderror @if($quiz->allowed_attempt!="1" || Session::has("not_greather_than_2")) checked @endif> Customize<br>
-                            @error('attempt')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="row attempt-times" @if($errors->any() || $quiz->allowed_attempt!="1" || Session::has("not_greather_than_2")) style="display: flex @else style="display: none @enderror"> 
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="multi_attempt">Number of Attempt</label>
-                            <input type="number" min="1" name="multi_attempt" id="multi_attempt" class="form-control" value="{{ old("multi_attempt") ?? $quiz->allowed_attempt }}">
-                            @error('multi_attempt')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                            @if (Session::has("not_greather_than_2"))
-                                <span class="text-danger">{{ Session::get("not_greather_than_2") }}</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
             </form>
         </div>
@@ -121,16 +93,5 @@
             'height' : 200
         })
     })
-    </script>
-@endpush
-@push('script')
-    <script>
-
-        $("#attempt2").on("click",function(){
-            $(".attempt-times").css("display","flex")
-        })
-        $("#attempt").on("click",function(){
-            $(".attempt-times").css("display","none")
-        })
     </script>
 @endpush

@@ -29,11 +29,20 @@
                             tidak memiliki pertanyaan sesuai dengan jumlah pertanyaan yang sebelumnya telah di inputkan</p>
                     </div>
                     <hr>
-                    <p class="mb-1">Instructions : {!! $quiz->instructions ?? "-" !!}</p>
+                    <p class="mb-1">Instructions : 
+                        <div class="alert alert-success" role="alert">
+                            <b>{!! $quiz->instructions ?? "-" !!}</b>
+                        </div>
+                    </p>
                     <p class="mb-1">Attempt : {{ $quiz->allowed_attempt }} Times</p>
                     <p class="mb-1">Access : {{ Str::ucfirst($quiz->access_type) }}</p>
                     <p>Due Date : {{ $quiz->due_date }}</p>
                     <p>Question : {{ $quiz->number_of_question }} Number</p>
+                    @php $nilai = 0; @endphp
+                    @foreach ($quiz->question as $data)
+                        @php $nilai += $data->nilai @endphp
+                    @endforeach
+                    <p>Max Point : {{ $nilai }} Points</p>
                     @if ($quiz->question->count()!=0)
                         <a class="" data-toggle="collapse" href="#collapsetwo" role="button" aria-expanded="false" aria-controls="collapsetwo">
                             Lihat Pertanyaan
@@ -225,7 +234,7 @@
                                 </a>
                                 <div class="modal fade" id="modaldeleteq{{ $q->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <form action="{{ route("delete.question",["id" => $q->id]) }}" method="post">
+                                        <form action="{{ route("delete.question",["id" => $q->id]) }}?course_id={{ request()->course_id }}&quiz_id={{ $quiz->id }}" method="post">
                                             @csrf
                                             @method("DELETE")
                                             <div class="modal-content">

@@ -85,9 +85,11 @@ class QuestionController extends Controller
 
     public function destroy($id)
     {
+        $course_id = request()->course_id;
+        $quiz_id = request()->quiz_id;
         $question = Question::findOrFail($id);
         $question->delete();
 
-        return redirect()->back()->with("q_delete","Berhasil menghapus pertanyaan");
+        return redirect()->to("guru/quiz/detail/$quiz_id?course_id=$course_id")->with("q_delete","Berhasil menghapus pertanyaan");
     }
 }

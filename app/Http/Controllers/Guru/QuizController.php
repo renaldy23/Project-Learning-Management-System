@@ -27,25 +27,10 @@ class QuizController extends Controller
             "title" => "required|max:50",
             "lesson_id" => "required",
             "amount_of_question" => "required|numeric",
-            "attempt" => "required",
             "date" => "required",
             "time" => "required"
         ]);
-        if ($request->attempt=="1") {
-            $attempt = "1";
-        }else{
-            if ($request->multi_attempt==null) {
-                $request->validate([
-                    "multi_attempt" => "required|digits_between:2,100"
-                ]);
-            }
-            else{
-                $attempt = $request->multi_attempt;
-                if ($attempt<2) {
-                    return redirect()->back()->with("not_greather_than_2","The value must greather than 1");
-                }
-            }
-        }
+        $attempt = "1";
 
         $course_id = $request->course_id;
         $course = Course::findOrFail($course_id);
@@ -66,7 +51,7 @@ class QuizController extends Controller
 
     public function detail($id)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = Quiz::with("siswa")->findOrFail($id);
         return view("user.guru.quiz.detail",[
             "quiz" => $quiz,
         ]);
@@ -90,7 +75,6 @@ class QuizController extends Controller
             "title" => "required|max:50",
             "lesson_id" => "required",
             "amount_of_question" => "required|numeric",
-            "attempt" => "required",
             "date" => "required",
             "time" => "required"
         ]);
@@ -98,25 +82,11 @@ class QuizController extends Controller
         $course_id = $request->course_id;
         $course = Course::findOrFail($course_id);
         $due_date = $request->date." ".$request->time.":00";
-        if ($request->attempt=="1") {
-            $attempt = "1";
-        }else{
-            if ($request->multi_attempt==null) {
-                $request->validate([
-                    "multi_attempt" => "required"
-                ]);
-            }
-            else{
-                $attempt = $request->multi_attempt;
-                if ($attempt<2) {
-                    return redirect()->back()->with("not_greather_than_2","The value must greather than 1")->withInput($request->input());
-                }
-            }
-        }
+        $attempt = "1";
 
         if ($quiz->question->count()!=0) {
-            if ($request->amount_of_question<$quiz->number_of_question) {
-                $less = $quiz->number_of_question-$request->amount_of_question;
+            if ($request->amount_of_question<$quiz->question->count()) {
+                $less = $quiz->question->count()-$request->amount_of_question;
                 for ($i=1; $i <= $less ; $i++) { 
                     Question::orderBy("id","desc")->limit(1)->delete();
                 }

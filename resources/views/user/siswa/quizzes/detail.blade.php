@@ -12,9 +12,13 @@
                         ini belum membuka akses untuk quiz ini , silahkan untuk menghubungi guru yang bersangkutan</p>
                     </div>
                     <hr>
-                    <p class="mb-1">Instructions : {!! $quiz->instructions ?? "-" !!}</p>
+                    <p class="mb-1">Instructions : 
+                        <div class="alert alert-success">
+                            <b>{!! $quiz->instructions ?? "-" !!}</b>
+                        </div>
+                    </p>
                     <p class="mb-1">Attempt : {{ $quiz->allowed_attempt }} Times</p>
-                    <p class="mb-1">Access : {{ Str::ucfirst($quiz->access_type) }}</p>
+                    <p class="mb-1">Access : @if($quiz->siswa->count()==$quiz->allowed_attempt) Closed @else {{ Str::ucfirst($quiz->access_type) }} @endif</p>
                     <p>Due Date : {{ $quiz->due_date }}</p>
                     <p>Question : {{ $quiz->question->count() }} Number</p>
                 </div>
