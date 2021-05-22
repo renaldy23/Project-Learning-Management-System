@@ -21,7 +21,9 @@ class QuestionController extends Controller
             "nilai" => "required",
             "key" => "required"
         ]);
-
+        
+        $nilai = str_replace(",",".",$request->nilai);
+        $valid_nilai = (double) $nilai;
         $quiz = Quiz::findOrFail($quiz_id);
         $number = $request->question_number;
         $key = strtoupper($request->key);
@@ -34,7 +36,7 @@ class QuestionController extends Controller
             "option_c" => $request->option_c,
             "option_d" => $request->option_d,
             "key" => $key,
-            "nilai" => $request->nilai
+            "nilai" => $valid_nilai
         ]);
 
         return redirect()->back()->with("question_create","Berhasil membuat pertanyaan baru!");
@@ -62,12 +64,13 @@ class QuestionController extends Controller
             "nilai" => "required",
             "key" => "required"
         ]);
-        
+
+        $nilai = str_replace(",",".",$request->nilai);
+        $valid_nilai = (double) $nilai;
         $question = Question::findOrFail($id);
         $quiz = Quiz::findOrFail($quiz_id);
         $number = $request->question_number;
         $key = strtoupper($request->key);
-
         $question->update([
             "quiz_id" => $quiz->id,
             "number" => $number,
@@ -77,7 +80,7 @@ class QuestionController extends Controller
             "option_c" => $request->option_c,
             "option_d" => $request->option_d,
             "key" => $key,
-            "nilai" => $request->nilai
+            "nilai" => $valid_nilai
         ]);
 
         return redirect()->route("detail.quiz",["id" => $quiz_id])->with('q_update',"Berhasil mengupdate pertanyaan");

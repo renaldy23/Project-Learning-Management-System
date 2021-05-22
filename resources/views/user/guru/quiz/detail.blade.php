@@ -30,9 +30,13 @@
                     </div>
                     <hr>
                     <p class="mb-1">Instructions : 
-                        <div class="alert alert-success" role="alert">
-                            <b>{!! $quiz->instructions ?? "-" !!}</b>
-                        </div>
+                        @if ($quiz->instructions)
+                            <div class="alert alert-success" role="alert">
+                                <b>{!! $quiz->instructions !!}</b>
+                            </div>
+                        @else
+                            -
+                        @endif
                     </p>
                     <p class="mb-1">Attempt : {{ $quiz->allowed_attempt }} Times</p>
                     <p class="mb-1">Access : {{ Str::ucfirst($quiz->access_type) }}</p>
@@ -169,7 +173,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="nilai">Nilai Soal</label>
-                                    <input type="number" name="nilai" id="nilai" class="form-control">
+                                    <input type="text" name="nilai" id="nilai" class="form-control">
                                     @error('nilai')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

@@ -23,12 +23,16 @@
                                     @endforeach
                                 </ul>
                             @endif
-                            @if (date("Y-m-d H:i")==date("Y-m-d H:i" , strtotime($task->due_date)))
-                                
-                            @else
-                                <p>Due Date <strong>{{ $task->due_date }}</strong></p>
-                            @endif
                         </div>
+                        @if (date("Y-m-d H:i")>date("Y-m-d H:i" , strtotime($task->due_date)))
+                            <div class="card-footer">
+                                Overdue at <strong class="text-danger">{{ $task->due_date }}</strong>
+                            </div>
+                        @else
+                            <div class="card-footer">
+                                Due Date <strong>{{ $task->due_date }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -37,36 +41,102 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <th>Submitted</th>
-                                <td>{{ $submission->submitted_at }}</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td>{{ $submission->status }}</td>
-                            </tr>
-                            <tr>
-                                <th>Text</th>
-                                <td>{!! $submission->online_text !!}</td>
-                            </tr>
-                            <tr>
-                                <th>Files</th>
-                                <td>
-                                    @if ($submission->attach_files)
-                                        <a href="{{ asset("submission_siswa/".$submission->attach_files) }}">
-                                            {{ $submission->attach_files }}
-                                        </a>
-                                    @else
-                                        Nothing to Show
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Comment</th>
-                                <td>{{ $submission->comment ?? "" }}</td>
-                            </tr>
-                        </table>
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <th>Submitted</th>
+                                    <td>{{ $submission->submitted_at }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{ $submission->status }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Text</th>
+                                    <td>{!! $submission->online_text !!}</td>
+                                </tr>
+                                <tr>
+                                    <th>Files</th>
+                                    <td>
+                                        @if ($submission->attach_files)
+                                            <a href="{{ asset("submission_siswa/".$submission->attach_files) }}">
+                                                {{ $submission->attach_files }}
+                                            </a>
+                                        @else
+                                            Nothing to Show
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Comment</th>
+                                    <td>{{ $submission->comment ?? "" }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        @if (date("Y-m-d H:i")<date("Y-m-d H:i" , strtotime($task->due_date)))
+                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#modaledit{{ $submission->id }}">
+                                Edit
+                            </a>
+                        @endif
+                        @if (Session::has("not_upload"))
+                            <div class="alert alert-warning" role="alert">
+                                {{ Session::get("not_upload") }}
+                            </div>
+                        @endif
+                        <div class="modal fade" id="modaledit{{ $submission->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="{{ route("update.submission",["id" => $submission->id]) }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method("PUT")
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit your Submission</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="text_online">Text Online</label>
+                                                <textarea name="text_online" id="summernote2">{{ $submission->online_text }}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="attach_files">Attached Files</label><br>
+                                                <a class="btn-sm btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                        Tambah file baru
+                                                </a>
+                                                <a class="btn-sm btn btn-danger" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        Hapus file saat ini
+                                                </a>
+                                                <div class="collapse mt-2" id="collapseExample">
+                                                    <div class="card card-body">
+                                                        <input type="file" name="files" id="files">
+                                                    </div>
+                                                </div>
+                                                <div class="collapse mt-2" id="collapseExample2">
+                                                    <div class="card card-body">
+                                                        @if ($submission->attach_files)
+                                                            <a href="{{ asset("submission_siswa/".$submission->attach_files) }}">
+                                                                {{ $submission->attach_files }}
+                                                            </a>
+                                                            <a href="{{ route("delete.file.submission",["id" => $submission->id]) }}" class="btn-sm btn btn-danger w-50">Delete</a> 
+                                                        @else
+                                                            <p class="text-muted">Tidak ada file yang ditambahkan</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,12 +218,20 @@
 @endsection
 @push('script')
     <script>
-    $(function () {
-        // Summernote
-        $('#summernote').summernote({
-            'height' : 170
+        $(function () {
+            // Summernote
+            $('#summernote').summernote({
+                'height' : 170
+            })
         })
-    })
+    </script>
+    <script>
+        $(function () {
+            // Summernote
+            $('#summernote2').summernote({
+                'height' : 170
+            })
+        })
     </script>
 @endpush
 @push('script')

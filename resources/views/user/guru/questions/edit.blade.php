@@ -68,7 +68,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="nilai">Nilai Soal</label>
-                            <input type="number" name="nilai" id="nilai" class="form-control" value="{{ $question->nilai }}">
+                            <input type="text" name="nilai" id="nilai" class="form-control" value="{{ $question->nilai }}">
                             @error('nilai')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

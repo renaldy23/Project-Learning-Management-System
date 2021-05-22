@@ -38,6 +38,8 @@ Route::group(["prefix" => "siswa" , "middleware" => ["auth:student"]],function()
     Route::post("/presence/attempt/{id}",[App\Http\Controllers\Siswa\SiswaCourseController::class,'presence_attempt'])->name("presence.attempt");
     
     Route::post("/task/submission-add/{id}",[App\Http\Controllers\Siswa\SubmissionController::class,'store'])->name("task.add.submission");
+    Route::get("/submission-edit/delete-file/{id}",[App\Http\Controllers\Siswa\SubmissionController::class,'delete_file'])->name("delete.file.submission");
+    Route::put("/update/submission/{id}",[App\Http\Controllers\Siswa\SubmissionController::class,'update'])->name("update.submission");
     
     Route::get('/profile-siswa',[App\Http\Controllers\ProfileController::class,'profile'] )->name("profile.siswa");
 

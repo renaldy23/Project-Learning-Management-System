@@ -13,9 +13,13 @@
                     </div>
                     <hr>
                     <p class="mb-1">Instructions : 
-                        <div class="alert alert-success">
-                            <b>{!! $quiz->instructions ?? "-" !!}</b>
-                        </div>
+                        @if ($quiz->instructions)
+                            <div class="alert alert-success">
+                                <b>{!! $quiz->instructions !!}</b>
+                            </div>
+                        @else
+                            -
+                        @endif
                     </p>
                     <p class="mb-1">Attempt : {{ $quiz->allowed_attempt }} Times</p>
                     <p class="mb-1">Access : @if($quiz->siswa->count()==$quiz->allowed_attempt) Closed @else {{ Str::ucfirst($quiz->access_type) }} @endif</p>
@@ -105,7 +109,7 @@
                                                     <div class="alert alert-danger mb-0 mt-2">
                                                         <div class="d-flex justify-content-between">
                                                             <p class="mb-0">Your Answer : {{ $a->option }} <i style="font-size: 14px">(Wrong)</i></p>
-                                                            <p class="mb-0">0/{{ $q->nilai }}</p>
+                                                            <p class="mb-0">0 Points</p>
                                                         </div>
                                                     </div>
                                                 @endif

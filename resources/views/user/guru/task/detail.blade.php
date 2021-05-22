@@ -100,7 +100,7 @@
                                         <td>{{ $data->comment ?? "" }}</td>
                                         @if ($task->lesson->course->guru_id==Auth::guard("teacher")->user()->id)
                                             <td>
-                                                @if ($data->status=="Submitted")
+                                                @if ($data->status=="Submitted" || $data->status=="Missing")
                                                     <a href="" class="btn-sm btn btn-success"
                                                     data-toggle="modal" data-target="#modalgrade{{ $data->id }}">Grade Now</a>
                                                     <div class="modal fade" id="modalgrade{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

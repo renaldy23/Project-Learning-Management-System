@@ -41,4 +41,40 @@ class SubmissionController extends Controller
 
         return redirect()->back()->with("submission_store","Berhasil membuat submission baru!");
     }
+
+    public function delete_file($id)
+    {
+        $submission = Submission::findOrFail($id);
+        $file = $submission->attach_files;
+        $path = public_path()."/submission_siswa/".$file;
+        $current_file = "";
+        $submission->update([
+            "attach_files" => $current_file
+        ]);
+        unlink($path);
+        return redirect()->back();
+    }
+
+    public function update(Request $request , $id)
+    {
+        $submission = Submission::findOrFail($id);
+
+        $name = "";
+        if ($request->hasFile("files")) {
+            $file = $request->file("files");
+            $name = $file->getClientOriginalName();
+            if ($submission->attach_files) {
+                $path = public_path()."/submission_siswa/".$submission->attach_files;
+                unlink($path);
+            }
+            $file->move(public_path().'/submission_siswa',$name);
+        }
+
+        $submission->update([
+            "online_text" => $request->text_online,
+            "attach_files" => $name
+        ]);
+
+        return redirect()->back()->with("success_edit","Berhasil mengedit submission");
+    }
 }
