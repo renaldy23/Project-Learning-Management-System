@@ -16,7 +16,8 @@ class UserGuruController extends Controller
         return view("admin.guru.list_guru",[
             "title" => "User Guru",
             "breadcumb_active" => "Data User Guru",
-            "guru" => $guru
+            "guru" => $guru,
+            "web_title" => 'List Guru'
         ]);
     }
 
@@ -52,7 +53,8 @@ class UserGuruController extends Controller
         return view("admin.guru.edit_guru",[
             "title" => "Edit Guru",
             "breadcumb_active" => "Edit Guru",
-            "guru" => $guru
+            "guru" => $guru,
+            "web_title" => "Edit Guru"
         ]);
     }
 

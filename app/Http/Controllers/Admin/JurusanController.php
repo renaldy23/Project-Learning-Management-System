@@ -20,7 +20,8 @@ class JurusanController extends Controller
             "breadcumb_active" => "Jurusan",
             "jurusan" => $jurusan,
             "kelas" => $kelas,
-            "guru" => $guru
+            "guru" => $guru,
+            "web_title" => "List Jurusan dan Kelas"
         ]);
     }
 

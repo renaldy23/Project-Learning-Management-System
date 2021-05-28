@@ -15,7 +15,8 @@ class UserAdminController extends Controller
         return view("admin.user_admin.list_admin",[
             "title" => "Data User Admin",
             "breadcumb_active" => "User Admin",
-            "admins" => $admins
+            "admins" => $admins,
+            "web_title" => "List Admin"
         ]);
     }
 
@@ -44,7 +45,8 @@ class UserAdminController extends Controller
         return view("admin.user_admin.edit",[
             "title" => "Edit Admin",
             "breadcumb_active" => "Edit Admin",
-            "admin" => $admin
+            "admin" => $admin,
+            "web_title" => "Edit Admin"
         ]);
     }
 

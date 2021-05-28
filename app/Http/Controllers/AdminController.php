@@ -33,7 +33,8 @@ class AdminController extends Controller
             "all_admin" => $admin,
             "online_siswa" => $online_siswa,
             "online_guru" => $online_guru,
-            "lesson" => $lesson
+            "lesson" => $lesson,
+            "web_title" => "Dashboard Admin"
         ]);
     }
 }

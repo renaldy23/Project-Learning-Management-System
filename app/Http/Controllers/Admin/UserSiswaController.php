@@ -21,7 +21,8 @@ class UserSiswaController extends Controller
             "breadcumb_active" => 'Data User Siswa',
             "siswa" => $siswa,
             "kelas" => $kelas,
-            "jurusan" => $jurusan
+            "jurusan" => $jurusan,
+            "web_title" => "List Siswa"
         ]);
     }
 
@@ -66,7 +67,8 @@ class UserSiswaController extends Controller
             "breadcumb_active" => "Edit Siswa",
             "siswa" => $siswa,
             "kelas" => $kelas,
-            "jurusan" => $jurusan
+            "jurusan" => $jurusan,
+            "web_title" => "Edit Siswa"
         ]);
     }
     

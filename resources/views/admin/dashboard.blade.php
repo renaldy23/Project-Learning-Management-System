@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="alert alert-primary" role="alert">
-                    <strong>Selamat Datang di Dashboard , Pak Erwin ( Admin )</strong>
+                    <strong>Selamat Datang di Dashboard , {{ Auth::guard("admin")->user()->name }} ( Admin )</strong>
                     <p>Anda saat ini sedang berada di dashboard admin , di mana anda medapat role untuk mengatur aktivitas administrasi dari BESMART LMS . Mohon untuk tidak menyalahgunakan keuntungan yang anda miliki , Terimakasih!</p>
                 </div>
             </div>

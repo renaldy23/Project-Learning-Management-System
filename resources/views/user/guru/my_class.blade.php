@@ -9,7 +9,7 @@
         </div>
     @else
         <div class="row flex-column-reverse flex-sm-row">
-            <div class="col-sm-8">
+            <div class="col-sm-8 col-md-12 mb-3 col-lg-8">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -96,6 +96,10 @@
                                                                             <a href="{{ route("class.task.detail",["id" =>$c->id]) }}" class="btn-sm btn btn-primary">
                                                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                                             </a>
+                                                                        @else
+                                                                            <a href="{{ route("my.course") }}" class="btn-sm btn btn-primary">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -112,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 mb-3">
+            <div class="col-sm-4 mb-3 col-md-12 col-lg-4">
                 <div class="accordion" id="accordionExample">
                     <div class="card " style="border-top: 2px solid #0076fa">
                         <div class="card-header" id="headingOne">

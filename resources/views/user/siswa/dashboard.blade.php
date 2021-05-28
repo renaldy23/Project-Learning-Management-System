@@ -55,35 +55,37 @@
             <div class="card">
                 <div class="card-header">Presensi Terkini</div>
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>Due Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($presences as $presence)
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td scope="row">{{ $loop->iteration }}</td>
-                                    <td>{{ $presence->title }} {{ $presence->course_title }}</td>
-                                    <td>{{ $presence->due_date }}</td>
-                                    <td>
-                                        @if ($presence->siswapresence->count()==0)
-                                            <form action="{{ route("presence.attempt",["id" => $presence->id]) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn-sm btn btn-success">Presence</button>
-                                            </form>
-                                        @else
-                                            <p>Presence Confirmed</p>
-                                        @endif
-                                    </td>
+                                    <th>No</th>
+                                    <th>Title</th>
+                                    <th>Due Date</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($presences as $presence)
+                                    <tr>
+                                        <td scope="row">{{ $loop->iteration }}</td>
+                                        <td>{{ $presence->title }} {{ $presence->course_title }}</td>
+                                        <td>{{ $presence->due_date }}</td>
+                                        <td>
+                                            @if ($presence->siswapresence->count()==0)
+                                                <form action="{{ route("presence.attempt",["id" => $presence->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn-sm btn btn-success">Presence</button>
+                                                </form>
+                                            @else
+                                                <p>Presence Confirmed</p>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

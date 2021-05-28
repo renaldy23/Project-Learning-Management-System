@@ -20,7 +20,8 @@ class AdministrationCourseController extends Controller
             "breadcumb_active" => "Course",
             "guru" => $guru,
             "kelas" => $kelas,
-            "courses" => $courses
+            "courses" => $courses,
+            "web_title" => "LMS List Courses"
         ]);
     }
 
@@ -57,7 +58,8 @@ class AdministrationCourseController extends Controller
             "course" => $course,
             "kelas" => $kelas,
             "guru" => $guru,
-            "classes_id" => $classes_id
+            "classes_id" => $classes_id,
+            "web_title" => "Edit Course ".$course->course_title
         ]);
     }
 

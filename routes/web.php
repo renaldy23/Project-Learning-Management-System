@@ -126,7 +126,7 @@ Route::group(["prefix" => "edit"],function(){
     Route::get("course/show/{id}",[App\Http\Controllers\Admin\AdministrationCourseController::class,'edit'])->name("edit.show.course");
     Route::put("guru/attempt/{id}",[App\Http\Controllers\Admin\UserGuruController::class,'update'])->name("edit.attempt.guru");
     Route::put("siswa/attempt/{id}",[App\Http\Controllers\Admin\UserSiswaController::class,'update'])->name("edit.attempt.siswa");
-    Route::put("siswa/attempt/{id}",[App\Http\Controllers\Admin\UserAdminController::class,'update'])->name("edit.attempt.admin");
+    Route::put("admin/attempt/{id}",[App\Http\Controllers\Admin\UserAdminController::class,'update'])->name("edit.attempt.admin");
     Route::put("course/attempt/{id}",[App\Http\Controllers\Admin\AdministrationCourseController::class,'update'])->name("edit.attempt.course");
 });
 

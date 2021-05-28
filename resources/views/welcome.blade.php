@@ -76,7 +76,23 @@
                             Clean UI , kaya akan fitur , dan tentu saja sangat user friendly . Membantu siswa dan guru
                             dalam melaksanakan pembelajaran secara daring selama masa pandemi , agar meskipun di masa pandemi
                             kualitas pendidikan tidak menurun. </p>
-                        <a href="#" class="btn btn-started">Get Started</a>
+                        @if (Auth::guard("student")->check() || Auth::guard("teacher")->check() || Auth::guard("admin")->check())
+                            @if (Auth::guard('student')->check())
+                                <a href="{{ route("dashboard.siswa") }}" class="btn btn-started">
+                                    Get Started
+                                </a>
+                            @elseif(Auth::guard("teacher")->check())
+                                <a href="{{ route("dashboard.guru") }}" class="btn btn-started">
+                                    Get Started
+                                </a>
+                            @else
+                                <a href="{{ route("admin.dashboard") }}" class="btn btn-started">
+                                    Get Started
+                                </a>
+                            @endif
+                        @else
+                            <a href="{{ route("login.form") }}" class="btn btn-started">Get Started</a>
+                        @endif
                     </div>
                     <div class="col-sm-6" data-aos="fade-left">
                         <img src="{{ asset("img/3784896.jpg") }}" alt="" class="img-fluid">

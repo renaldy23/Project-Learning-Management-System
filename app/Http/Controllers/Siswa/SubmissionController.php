@@ -59,7 +59,7 @@ class SubmissionController extends Controller
     {
         $submission = Submission::findOrFail($id);
 
-        $name = "";
+        $name = $submission->attach_files;
         if ($request->hasFile("files")) {
             $file = $request->file("files");
             $name = $file->getClientOriginalName();

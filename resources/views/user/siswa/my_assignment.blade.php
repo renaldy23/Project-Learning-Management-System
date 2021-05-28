@@ -19,7 +19,7 @@
                                         , {{ $item->task->lesson->title }} , {{ $item->task->lesson->course->course_title }}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $item->submitted_at }} , {{ $item->status }}</h6>
                                     <p class="card-text">
-                                        {!! $item->online_text ?? "<a href='/submission_siswa/$item->attach_files'>$item->attach_files</a>" !!}
+                                        {!! $item->online_text." <a href='/submission_siswa/$item->attach_files'>$item->attach_files</a>" !!}
                                     </p>
                                 </div>
                             </div>
