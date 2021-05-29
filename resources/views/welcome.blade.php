@@ -95,7 +95,7 @@
                         @endif
                     </div>
                     <div class="col-sm-6" data-aos="fade-left">
-                        <img src="{{ asset("img/3784896.jpg") }}" alt="" class="img-fluid">
+                        <img src="{{ asset("img/3784896.webp") }}" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>
