@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-footer">
                     @if ($task->lesson->course->guru_id==Auth::guard("teacher")->user()->id)
-                        <a href="{{ route("task.edit",["id" => $task->id]) }}" class="btn-sm btn btn-success">
+                        <a href="{{ route("task.edit",["id" => $task->id]) }}?course_id={{ request()->course_id }}" class="btn-sm btn btn-success">
                             Edit
                         </a>
                         <a href="#" class="btn-sm btn btn-danger" data-toggle="modal" data-target="#modaldelete{{ $task->id }}">

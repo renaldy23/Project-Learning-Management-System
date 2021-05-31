@@ -65,8 +65,9 @@ class TaskAdministrationController extends Controller
 
     public function edit($id)
     {
-        $lessons = Lesson::all();
+        $lessons = Lesson::where("course_id",request()->course_id)->get();
         $task = Task::findOrFail($id);
+
 
         return view("user.guru.task.edit",[
             "lessons" => $lessons,

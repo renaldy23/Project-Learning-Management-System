@@ -107,4 +107,21 @@ class LessonController extends Controller
 
         return redirect()->route("my.course")->with("success_delete_lesson","Berhasil menghapus lesson");
     }
+
+    public function duplicate($id)
+    {
+        $lesson = Lesson::with("bahanajar")->findOrFail($id);
+        $new_lesson = $lesson->replicate();
+        $new_lesson->save();
+
+        $relations = $lesson->getRelation("bahanajar");
+        foreach ($relations as $relation) {
+            $new_relation = $relation->replicate();
+            $new_relation->lesson_id = $new_lesson->id;
+            $new_relation->push();
+        }
+
+
+        return redirect()->back();
+    }
 }

@@ -130,9 +130,29 @@
                                         <ul class="list-group mt-2">
                                             @foreach ($my_course->lesson as $item_lesson)
                                                 <li class="list-group-item" style="font-weight: normal">
-                                                    <a href="{{ route("detail.lesson",["id" => $item_lesson->id]) }}">
-                                                        {{ $item_lesson->title }}
-                                                    </a>
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <a href="{{ route("detail.lesson",["id" => $item_lesson->id]) }}">
+                                                                {{ $item_lesson->title }}
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="dropdown d-flex justify-content-end">
+                                                                <a class="e" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                                </a>
+                                                            
+                                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                                    <a class="dropdown-item" href="{{ route("duplicate.lesson",["id" => $item_lesson->id]) }}">
+                                                                        <span>
+                                                                            <i class="fas fa-copy"></i>
+                                                                            Duplicate
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             @endforeach
                                         </ul>

@@ -52,10 +52,6 @@
 @endsection
 @push('css-inline')
     <style>
-        iframe{
-            width: 500px;
-            height: 300px;
-        }
         @media screen and ( max-width: 600px){
             iframe{
                 width: 500px;
@@ -68,7 +64,7 @@
         }
         @media screen and ( max-width: 435px){
             iframe{
-                width: 350px;
+                width: 330px;
             }
         }
         @media screen and ( max-width: 390px){

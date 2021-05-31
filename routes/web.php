@@ -66,6 +66,7 @@ Route::group(["prefix" => "guru" , "middleware" => ["auth:teacher"]],function(){
     Route::get("bahanajar/delete/{id}",[App\Http\Controllers\Guru\LessonController::class,'bahanajar_delete'])->name("delete.bahanajar");
     Route::put("lesson/update/{id}",[App\Http\Controllers\Guru\LessonController::class,'update'])->name("update.lesson");
     Route::delete("lesson/delete/{id}",[App\Http\Controllers\Guru\LessonController::class,'destroy'])->name("delete.lesson");
+    Route::get("lesson/duplicate/{id}",[App\Http\Controllers\Guru\LessonController::class,'duplicate'])->name("duplicate.lesson");
 
     Route::get("create/task",[App\Http\Controllers\Guru\TaskAdministrationController::class,"create"])->name("task.create");
     Route::post("store/task",[App\Http\Controllers\Guru\TaskAdministrationController::class,"store"])->name("task.store");
