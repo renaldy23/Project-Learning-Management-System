@@ -15,12 +15,24 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->insert([
-            "name" => "Superadmin",
-            "username" => "admin1234",
-            "password" => Hash::make("secret"),
-            "password_without_hash" => "secret",
-            "status" => "active"
-        ]);
+        $data = [
+            [
+                "name" => "Superadmin",
+                "username" => "admin1234",
+                "password" => Hash::make("secret"),
+                "password_without_hash" => "secret",
+                "status" => "active"
+            ],
+            [
+                "name" => "Admin01",
+                "username" => "admin",
+                "password" => Hash::make("admin"),
+                "password_without_hash" => "admin",
+                "status" => "active"
+            ]
+        ];
+        foreach ($data as $d) {
+            DB::table('admins')->insert($d);
+        }
     }
 }

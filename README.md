@@ -1,50 +1,16 @@
-# Be-Smart Learning Management System
+Cara instalasi aplikasi LMS Be-Smart
 
-Learning Management System is a website to make learning system in school more digitalize , This LMS called Be-Smart . This website using laravel as backend framework and jquery and css as front end .
+1 . unzip file project ini
+2 . buka terminal dan arahkan ke folder project nya
+3 . ketikan perintah composer install , dan tunggu beberapa saat hingga proses nya selesai
+4 . jika sudah selesai pada terminal yang sama ketikan perintah php artisan config:cache
+5 . selanjutnya ketikan perintah php artisan key:generate
+6 . buat database di phpmyadmin lalu ubah option DB_DATABASE pada .env file dengan nama database yang baru saja dibuat
+7 . buka kembali terminal yang sebelumnya dan ketikan perintah php artisan migrate setelah selesai ketikan perintah 
+    php artisan db:seed
+8 . jalankan project ini dengan cara ketikan perintah php artisan serve pada terminal .
+9 . pada browser ketikan url 127.0.0.1:8000
 
-## Getting Started
-Several things that you need to do before running this project .
-
-### Prerequisites
-Some tools that you need to install or you need to know .
-* [XAMPP](https://www.apachefriends.org/index.html/)
-* [Laravel](https://www.laravel.com)
-* [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
-* [JQuery](https://jquery.com/)
-* [Composer](https://getcomposer.org/)
-* [Git](https://git-scm.com/)
-
-### Installations
-Step by step to install this project on your machine
-
-Clone this repo
-```
-git clone https://github.com/renaldy23/Project-Learning-Management-System.git
-```
-
-Install the package for this project , run this command
-```
-composer install
-```
-
-Generate app key for laravel , run this command
-```
-php artisan key:generate
-```
-
-Create new database on your Database engine . after that Migrate and seeding the database , run this command
-```
-php artisan migrate
-php artisan db:seed
-```
-
-run this project , run this command 
-```
-php artisan serve
-```
-
-Login info
-```
+Info Login : 
 username : admin1234
 password : secret
-```
